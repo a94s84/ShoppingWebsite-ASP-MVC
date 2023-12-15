@@ -1,0 +1,65 @@
+﻿@model  shoppingWebsite.Models.ShowOrderDetail
+
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+
+<div class="p-md-4 text-center fs-2 col-9 m-auto" style="letter-spacing:0.3rem">
+    @ViewBag.Title
+</div>
+<div class="text-end mb-5">
+    <a href="@Url.Action("LogOut", "Member")" class="btn btn-dark">登出</a>
+</div>
+
+<div class="pb-3">
+    <p>訂單編號 : @Model.Order.OrderGuid</p>
+    <p>訂單日期: @Model.Order.Date</p>
+    <p>收件人: @Model.Order.Receiver</p>
+    <p>收件地址: @Model.Order.Address</p>
+    <p>購物明細: </p>
+</div>
+
+<table class="table ">
+    <tr>
+        <th colspan="2">
+            @Html.DisplayNameFor(model => Model.OrderDetail[0].ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.OrderDetail[0].Name)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => Model.OrderDetail[0].Price)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => Model.OrderDetail[0].Quantity)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.OrderDetail)
+    {
+        <tr>
+            <td class="text-center col-1">
+                <img src="~/image/@item.Image" width="100%" />
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="align-middle text-center">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td class="align-middle text-center">
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+<div class="m-auto mt-5 text-center">
+    <a href="@Url.Action("OrderList","Member")" title="回訂單列表頁" class="btn btn-dark px-4 mb-4" role="button">回訂單列表頁</a>
+</div>

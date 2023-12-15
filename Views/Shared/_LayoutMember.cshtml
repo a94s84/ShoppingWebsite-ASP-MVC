@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ASP MVC </title>
+    <link rel="Shortcut Icon" type="image/x-icon" href="~/image/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asul&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css?20231206")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background: #efecec">
+        <div class="container d-flex justify-content-between">
+            @Html.ActionLink("Demo", "Index", "Member", new { area = "" }, new { @class = "navbar-brand" })
+            <ul class="navbar-nav flex-row flex-wrap ms-auto">
+                <li>
+                    <a href="@Url.Action("ShoppingCart","Member")" title="購物車">
+                        <svg style="width:36px; height:36px; color: #333" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+                            <path d="m15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33l-.78-11.61zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1 -9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z" fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("OrderList","Member")" title="會員中心">
+                        <svg version="1.1" style="width:36px; height:28px; padding-top:8px; color: #333" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+                            <g class="eoOAFqdyQ6f2" opacity="0">
+                                <circle class="eoOAFqdyQ6f3" r="8" transform="matrix(1 0 0 1 8.4 8.5)" fill="rgb(236,199,205)" stroke="rgb(0,0,0)" stroke-width="0.75" stroke-miterlimit="1"></circle>
+                                <circle class="eoOAFqdyQ6f4" r="2.2" transform="matrix(1 0 0 1 8.4 6.7)" fill="none" stroke="rgb(0,0,0)" stroke-width="0.75" stroke-miterlimit="1"></circle>
+                                <path class="eoOAFqdyQ6f5" d="M4.4,12.7C4.7,10.8,6.2,9.4,8,9.2C10.1,9,12.1,10.5,12.4,12.8" fill="none" stroke="rgb(0,0,0)" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1"></path>
+                            </g>
+                            <g class="eoOAFqdyQ6f6_to" transform="translate(8.4,6.7)">
+                                <circle class="eoOAFqdyQ6f6" r="2.2" transform="translate(0,0)" fill="none" stroke="rgb(96,96,96)" stroke-width="0.75" stroke-miterlimit="1"></circle>
+                            </g>
+                            <g class="eoOAFqdyQ6f7_ts" transform="translate(8.4,10.991082) scale(1,1)">
+                                <path class="eoOAFqdyQ6f7" d="M4.4,12.7C4.7,10.8,6.2,9.4,8,9.2C10.1,9,12.1,10.5,12.4,12.8" transform="translate(-8.4,-10.991082)" fill="none" stroke="rgb(96,96,96)" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1"></path>
+                            </g>
+                            <circle class="eoOAFqdyQ6f8" r="8" transform="matrix(1 0 0 1 8.4 8.5)" fill="none" stroke="rgb(96,96,96)" stroke-width="0.75" stroke-miterlimit="1"></circle>
+                        </svg>
+                    </a>
+                </li>
+                <li><a href="#" class="nav-link">@Session["Welcome"]</a></li>
+            </ul>
+        </div>
+        @*<div class="container">
+                @Html.ActionLink("購物網Demo", "Index", "Member", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="切換導覽" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("購物車", "ShoppingCart", "Member", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("訂單", "OrderList", "Member", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("登出", "LogOut", "Member", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li><a href="#" class="nav-link">@Session["Welcome"]</a></li>
+                    </ul>
+                </div>
+            </div>*@
+    </nav>
+    <div style="background: #efecec; min-height: calc(100vh - 106px);">
+        <div class="container p-1">
+            @RenderBody()
+        </div>
+    </div>
+    <footer style="background: #252525;">
+        <p class="container m-auto p-3" style="color:rgba(239,236,236,0.75); font-size:12px">&copy; @DateTime.Now.Year - Demo - 僅供練習使用</p>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

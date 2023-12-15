@@ -1,0 +1,77 @@
+﻿@using shoppingWebsite.Models
+@model IEnumerable<table_Product>
+<div class="p-4 mb-4 text-center fs-2 col-9 m-auto" style="letter-spacing:0.3rem">
+    Sustainably Crafted Goods to Elevate Your Everyday.
+</div>
+<div class="row p-3">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-5 js-pdBox" data-pdid="@item.ProductId">
+            <div class="thumbnail">
+                <img src="~/image/@item.Image" width="100%" style="border-top-left-radius:15px; border-top-right-radius:15px" />
+                <div class="caption py-2">
+                    <h5 class="text-truncate">@item.Name</h5>
+                    <p class="mb-1">單價:@item.Price</p>
+                    @if (item.StQty == 0)
+                    {
+                        <div class="pdcnt_info_number js-pdNum">
+                            <select class="form-select bg-transparent mb-3" style="max-width:initial" aria-label="number">
+                                <option value="0">已完售</option>
+                            </select>
+                        </div>
+                        <p>
+                            <a class="btn btn-outline-dark col-12 disabled" aria-disabled="true">已完售</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="pdcnt_info_number js-pdNum">
+                            <select class="form-select bg-transparent mb-3" style="max-width:initial" aria-label="number">
+                                @if (item.StQty > item.Qty)
+                                {
+                                    for (int i = 1; i <= item.Qty; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                                else if (item.StQty < item.Qty)
+                                {
+                                    for (int i = 1; i <= item.StQty; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <p>
+                            <a class="btn btn-outline-dark col-12 js-addCart">加入購物車</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $('.js-addCart').each((i, e) => {
+                $(e).on("click", function () {
+                    let pdid = $(e).parents('.js-pdBox').data('pdid');
+                    let pdnum = $(e).parent().siblings('.js-pdNum').find('.form-select');
+                    $.ajax({
+                        type: "Post",
+                        url: "../Member/AddCar?ProductId=" + pdid + '&Num=' + pdnum.val(),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                    }).then((res) => {
+                        alert(res.msg);
+                    }).catch((err) => {
+                        alert("加入失敗");
+                    })
+                })
+            })
+        })
+    </script>
+}

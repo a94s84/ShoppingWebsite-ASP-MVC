@@ -1,0 +1,98 @@
+﻿@model shoppingWebsite.Models.table_Member
+
+@{
+    ViewBag.Title = "Log in | Sign up";
+}
+
+<div class="p-md-4 text-center fs-2 col-9 m-auto d-flex justify-content-center js-tabNav" style="letter-spacing:0.3rem">
+    <p class="fs-2 px-2" role="button">Log In</p> |
+    <p class="fs-2 px-2 text-black-50" role="button">Sign Up</p>
+</div>
+
+<div class="p-5 col-lg-4 m-auto js-tabCnt">
+    @using (Html.BeginForm("Login", "Home"))
+    {
+        <div class="form-group mb-3">
+            @Html.Label("帳號", new { @for = "LoginUserId" })
+            <div>
+                @Html.TextBox("LoginUserId", null, new { id = "LoginUserId", @class = "form-control", required = "required", style = "max-width: initial;" })
+            </div>
+        </div>
+        <div class="form-group mb-4">
+            @Html.Label("密碼", new { @for = "LoginPassword" })
+            <div>
+                @Html.Password("LoginPassword", null, new { id = "LoginPassword", @class = "form-control", required = "required", style = "max-width: initial;" })
+            </div>
+        </div>
+        <div class="form-group m-auto text-center mt-5">
+            <input type="submit" value="登入" class="btn btn-outline-dark col-12" />
+            <div class="text-danger mt-2">
+                @ViewBag.ErrorMessage
+            </div>
+        </div>
+    }
+</div>
+<div class="p-5 col-lg-4 m-auto js-tabCnt">
+    @using (Html.BeginForm("Register", "Home"))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal ">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.UserId, "帳號", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control", style = "max-width: initial;" } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.Password, "密碼", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password", style = "max-width: initial;" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.Name, "姓名", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "max-width: initial;" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", type = "email", style = "max-width: initial;" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group m-auto text-center mt-5">
+                <input type="submit" value="註冊" class="btn btn-outline-dark col-12" />
+                <div class="text-danger mt-2">
+                    @ViewBag.Message
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script>
+            $(function () {
+                $(".js-tabNav p").on("click", function () {
+                    $(".js-tabNav p").removeClass('active').removeClass("text-dark").addClass("text-black-50");
+                    $(".js-tabCnt").hide();
+                    $(this).removeClass("text-black-50").addClass("text-dark");
+                    var index = $(this).index();
+                    $(".js-tabCnt").eq(index).show();
+                })
+                $(".js-tabNav p").eq(0).click();
+            })
+    </script>
+
+    @Html.Raw(ViewBag.DataScript)
+}
+
